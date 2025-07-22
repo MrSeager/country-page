@@ -19,3 +19,10 @@
 .cs-tc-one {
     color: #D2D5DA !important;
 }
+
+/*Images*/
+.cs-flag-img {
+    height: 50px !important;
+    width: 75px !important;
+    object-fit: cover;
+}
