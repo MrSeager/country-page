@@ -1,14 +1,8 @@
-import { FC, useState, useEffect } from 'react';
+import { FC } from 'react';
 //Components
-import './countryPageStyle.css';
-import NavPanel from './NavPanel.tsx';
+import CountryItem from './CountryItem.tsx';
 //Bootstrap
-import 'bootstrap/dist/css/bootstrap.css';
-import { Col, Table, Image, Spinner } from 'react-bootstrap';
-//Axios
-import axios from 'axios';
-//Spring
-import { useSpring, animated } from '@react-spring/web';
+import { Row, Col, Spinner } from 'react-bootstrap';
 
 interface countriesListProps {
     flags: {
@@ -19,16 +13,12 @@ interface countriesListProps {
     name: {
         common: string,
         official: string,
-        nativeName: {
-            ron: {
-                official: string,
-                common: string,
-            }
-        }
     },
     population: number,
     area: number,
     region: string
+    independent: boolean,
+    unMember: boolean,
 }
 
 interface CountriesListSectionProps {
@@ -37,31 +27,33 @@ interface CountriesListSectionProps {
 
 const CountriesListSection: FC<CountriesListSectionProps> = ({ countriesList }) => {
     return (
-        <Col lg={9} xs={12} className='py-5'>
-            <Table>
-                <thead>
-                    <tr>
-                        <th>Flag</th>
-                        <th>Name</th>
-                        <th>Population</th>
-                        <th>Area (km²)</th>
-                        <th>Region</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {countriesList.length > 0 ? (
-                        countriesList.map((country, index) => (
-                            <tr key={index} tabIndex={index}>
-                                <td><Image fluid src={country.flags.svg} alt={country.flags.alt} className='cs-flag-img rounded' /></td>
-                                <td>{country.name.common}</td>
-                                <td>{country.population}</td>
-                                <td>{country.area}</td>
-                                <td>{country.region}</td>
-                            </tr>
-                        ))
-                    ) : <Spinner className='mx-auto my-5' animation="grow" variant="light" role='status' />}
-                </tbody>
-            </Table>
+        <Col lg={9} xs={12} className='py-5 d-flex flex-column gap-4'>
+            <Row className='cs-tc-one border-bottom pb-2'>
+                <Col xs={1} className='p-0'>
+                    <h3 className='h6'>Flag</h3>
+                </Col>
+                <Col xs={3} className='p-0'>
+                    <h3 className='h6'>Name</h3>
+                </Col>
+                <Col xs={3} className='p-0'>
+                    <h3 className='h6'>Population</h3>
+                </Col>
+                <Col xs={3} className='p-0'>
+                    <h3 className='h6'>Area (km²)</h3>
+                </Col>
+                <Col xs={2} className='p-0'>
+                    <h3 className='h6'>Region</h3>
+                </Col>
+            </Row>
+            
+            {countriesList.length > 0 ? (
+                countriesList.map((country, index) => (
+                    <CountryItem 
+                        country={country}
+                        index={index}
+                    />
+                ))
+            ) : <Spinner className='mx-auto my-5' animation="grow" variant="light" role='status' />}
         </Col>
     );
 }

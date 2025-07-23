@@ -6,9 +6,14 @@ import { Container, Col, Button, ButtonToolbar, ButtonGroup, Dropdown, Form } fr
 interface NavPanelProps {
     sortBy: string,
     setSortBy: (sortBy: string) => void,
+    toggleRegion: (region: string) => void,
+    filterUNMember: boolean,
+    setFilterUNMember: (filterUNMember: boolean) => void,
+    filterIndependent: boolean,
+    setFilterIndependent: (filterIndependent: boolean) => void,
 }
 
-const NavPanel: FC<NavPanelProps> = ({ sortBy, setSortBy }) => {
+const NavPanel: FC<NavPanelProps> = ({ sortBy, setSortBy, toggleRegion, filterUNMember, setFilterUNMember, filterIndependent, setFilterIndependent }) => {
     return (
         <Col lg={3} xs={12} className='pt-5 d-flex flex-column gap-4'>
             <Container className='d-flex flex-column p-0'>
@@ -31,16 +36,16 @@ const NavPanel: FC<NavPanelProps> = ({ sortBy, setSortBy }) => {
                 <h2 className='h6 cs-tc-one'>Region</h2>
                 <ButtonToolbar className='d-flex flex-column align-items-start gap-3'>
                     <ButtonGroup>
-                        <Button>Americas</Button>
-                        <Button>Antarctics</Button>
+                        <Button onClick={() => toggleRegion('Americas')}>Americas</Button>
+                        <Button onClick={() => toggleRegion('Antarctic')}>Antarctic</Button>
                     </ButtonGroup>
                     <ButtonGroup>
-                        <Button>Africa</Button>
-                        <Button>Asia</Button>
-                        <Button>Europe</Button>
+                        <Button onClick={() => toggleRegion('Africa')}>Africa</Button>
+                        <Button onClick={() => toggleRegion('Asia')}>Asia</Button>
+                        <Button onClick={() => toggleRegion('Europe')}>Europe</Button>
                     </ButtonGroup>
                     <ButtonGroup>
-                        <Button>Oceania</Button>
+                        <Button onClick={() => toggleRegion('Oceania')}>Oceania</Button>
                     </ButtonGroup>
                 </ButtonToolbar>
             </Container>
@@ -50,10 +55,14 @@ const NavPanel: FC<NavPanelProps> = ({ sortBy, setSortBy }) => {
                     <Form.Check
                         type='checkbox'
                         label='Member of the United Nations'
+                        checked={filterUNMember}
+                        onChange={() => setFilterUNMember(!filterUNMember)}
                     />
                     <Form.Check
                         type='checkbox'
                         label='Independent'
+                        checked={filterIndependent}
+                        onChange={() => setFilterIndependent(!filterIndependent)}
                     />
                 </Form>
             </Container>

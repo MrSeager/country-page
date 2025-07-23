@@ -26,3 +26,14 @@
     width: 75px !important;
     object-fit: cover;
 }
+
+/*Table*/
+.cs-table {
+    background-color: #282B30 !important;
+}
+
+.cs-table th,
+.cs-table td {
+    background-color: transparent !important;
+    color: #D2D5DA !important;
+}

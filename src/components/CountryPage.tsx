@@ -24,24 +24,23 @@ interface countriesListProps {
     name: {
         common: string,
         official: string,
-        nativeName: {
-            ron: {
-                official: string,
-                common: string,
-            }
-        }
     },
     population: number,
     area: number,
-    region: string
+    region: string,
+    independent: boolean,
+    unMember: boolean,
 }
 
 const CountryPage: FC = () => {
     const [countriesList, setCountriesList] = useState<countriesListProps[]>([]);
     const [sortBy, setSortBy] = useState<string>('population');
+    const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+    const [filterUNMember, setFilterUNMember] = useState<boolean>(false);
+    const [filterIndependent, setFilterIndependent] = useState<boolean>(false);
 
     useEffect(() => {
-        axios.get(`https://restcountries.com/v3.1/all?fields=flags,name,population,area,region`)
+        axios.get(`https://restcountries.com/v3.1/all?fields=flags,name,population,area,region,independent,unMember`)
             .then(response => {
             console.log('Fetched countries:', response.data);
             setCountriesList(response.data);
@@ -61,13 +60,31 @@ const CountryPage: FC = () => {
         return 0;
     });
 
+    const toggleRegion = (region: string) => {
+        setSelectedRegions(prev => 
+            prev.includes(region)
+            ? prev.filter(r => r !== region)
+            : [...prev, region]
+        )
+    }
+
+    const filteredCountries = sortedCountries.filter(country => {
+        const regionMatch =
+            selectedRegions.length === 0 || selectedRegions.includes(country.region);
+
+        const unMemberMatch = !filterUNMember || country.unMember;
+        const independentMatch = !filterIndependent || country.independent;
+
+        return regionMatch && unMemberMatch && independentMatch;
+    });
+
     return (
         <Container fluid className='min-vh-100 d-flex flex-column align-items-center justify-content-around cs-bg-main'>
             <Image fluid src={LogoImg} alt='logo' className='my-5 py-5' />
             <Container className='mb-5 cs-border rounded-3 cs-bg-second p-4 shadow cs-bc-one'>
                 <Row>
                     <Col lg={8} xs={12}>
-                        <h1 className='my-0 h3 cs-tc-one'>Found {countriesList.length > 0 ? countriesList.length : 'Loading...'} countries</h1>
+                        <h1 className='my-0 h3 cs-tc-one'>Found {filteredCountries.length > 0 ? filteredCountries.length : 'Loading...'} countries</h1>
                     </Col>
                     <Col lg={4} xs={12} className='d-flex flex-column align-items-center justify-content-center'>
                         <InputGroup>
@@ -83,9 +100,14 @@ const CountryPage: FC = () => {
                     <NavPanel
                         sortBy={sortBy}
                         setSortBy={setSortBy}
+                        toggleRegion={toggleRegion}
+                        filterUNMember={filterUNMember}
+                        setFilterUNMember={setFilterUNMember}
+                        filterIndependent={filterIndependent}
+                        setFilterIndependent={setFilterIndependent}
                     />
                     <CountriesListSection 
-                        countriesList={sortedCountries}
+                        countriesList={filteredCountries}
                     />
                 </Row>
             </Container>
