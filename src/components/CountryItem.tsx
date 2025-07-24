@@ -14,7 +14,8 @@ interface countryProps {
     },
     population: number,
     area: number,
-    region: string
+    region: string,
+    subregion: string,
 }
 interface CountryItemProps {
     country: countryProps,
@@ -30,16 +31,16 @@ const CountryItem: FC<CountryItemProps> = ({ country, index }) => {
                 <Image fluid src={country.flags.svg} alt={country.flags.alt} className='cs-flag-img rounded' />
             </Col>
             <Col xs={3} className='p-0 d-flex align-items-center'>
-                <h3 className='h5'>{country.name.common}</h3>
+                <h3 className='h5 m-0'>{country.name.common}</h3>
             </Col>
             <Col xs={3} className='p-0 d-flex align-items-center'>
-                <h3 className='h5'>{country.population.toLocaleString()}</h3>
+                <h3 className='h5 m-0'>{country.population.toLocaleString()}</h3>
             </Col>
             <Col xs={3} className='p-0 d-flex align-items-center'>
-                <h3 className='h5'>{country.area.toLocaleString()}</h3>
+                <h3 className='h5 m-0'>{country.area.toLocaleString()}</h3>
             </Col>
             <Col xs={2} className='p-0 d-flex align-items-center'>
-                <h3 className='h5'>{country.region}</h3>
+                <h3 className='h5 m-0'>{country.region}</h3>
             </Col>
         </Row>
     );

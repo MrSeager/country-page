@@ -2,6 +2,8 @@ import { FC } from 'react';
 //Bootstrap
 import 'bootstrap/dist/css/bootstrap.css';
 import { Container, Col, Button, ButtonToolbar, ButtonGroup, Dropdown, Form } from 'react-bootstrap';
+//Icons
+import { IoIosArrowDown } from "react-icons/io";
 
 interface NavPanelProps {
     sortBy: string,
@@ -11,41 +13,46 @@ interface NavPanelProps {
     setFilterUNMember: (filterUNMember: boolean) => void,
     filterIndependent: boolean,
     setFilterIndependent: (filterIndependent: boolean) => void,
+    selectedRegions: string[],
 }
 
-const NavPanel: FC<NavPanelProps> = ({ sortBy, setSortBy, toggleRegion, filterUNMember, setFilterUNMember, filterIndependent, setFilterIndependent }) => {
+const NavPanel: FC<NavPanelProps> = ({ sortBy, setSortBy, toggleRegion, filterUNMember, setFilterUNMember, filterIndependent, setFilterIndependent, selectedRegions }) => {
     return (
-        <Col lg={3} xs={12} className='pt-5 d-flex flex-column gap-4'>
+        <Col lg={3} xs={12} className='pt-5 d-flex flex-column gap-4 pe-3'>
             <Container className='d-flex flex-column p-0'>
                 <h2 className='h6 cs-tc-one'>Sort by</h2>
-                <Dropdown drop='down'>
-                    <Dropdown.Toggle id="dropdown-basic">
+                <Dropdown drop='down' className='cs-dropdown'>
+                    <Dropdown.Toggle 
+                        id="dropdown-basic" 
+                        className='bg-transparent cs-transition cs-tc-one py-2 rounded-3 cs-border-color w-100 d-flex align-items-center justify-content-between'
+                    >
                         {sortBy === 'population'
                             ? 'Population'
                             : 'Alphabetical'
                         }
+                        <IoIosArrowDown size={20} />
                     </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                        <Dropdown.Item onClick={() => setSortBy('population')}>Population</Dropdown.Item>
-                        <Dropdown.Item onClick={() => setSortBy('alphabetical')}>Alphabetical</Dropdown.Item>
+                    <Dropdown.Menu className='w-100 cs-bg-second border cs-border-color py-0 overflow-hidden'>
+                        <Dropdown.Item className='cs-tc-one cs-transition py-2' onClick={() => setSortBy('population')}>Population</Dropdown.Item>
+                        <Dropdown.Item className='cs-tc-one cs-transition py-2' onClick={() => setSortBy('alphabetical')}>Alphabetical</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
             </Container>
             <Container className='d-flex flex-column p-0'>
                 <h2 className='h6 cs-tc-one'>Region</h2>
-                <ButtonToolbar className='d-flex flex-column align-items-start gap-3'>
-                    <ButtonGroup>
-                        <Button onClick={() => toggleRegion('Americas')}>Americas</Button>
-                        <Button onClick={() => toggleRegion('Antarctic')}>Antarctic</Button>
+                <ButtonToolbar className='d-flex flex-lg-column flex-row align-items-start gap-3'>
+                    <ButtonGroup className='gap-3'>
+                        <Button className={`cs-transition cs-tc-one border-0 rounded-3 bg-transparent cs-btn${selectedRegions.includes('Americas') ? '-active' : ''}`} onClick={() => toggleRegion('Americas')}>Americas</Button>
+                        <Button className={`cs-transition cs-tc-one border-0 rounded-3 bg-transparent cs-btn${selectedRegions.includes('Antarctic') ? '-active' : ''}`} onClick={() => toggleRegion('Antarctic')}>Antarctic</Button>
+                    </ButtonGroup>
+                    <ButtonGroup className='gap-3'>
+                        <Button className={`cs-transition cs-tc-one border-0 rounded-3 bg-transparent cs-btn${selectedRegions.includes('Africa') ? '-active' : ''}`} onClick={() => toggleRegion('Africa')}>Africa</Button>
+                        <Button className={`cs-transition cs-tc-one border-0 rounded-3 bg-transparent cs-btn${selectedRegions.includes('Asia') ? '-active' : ''}`} onClick={() => toggleRegion('Asia')}>Asia</Button>
+                        <Button className={`cs-transition cs-tc-one border-0 rounded-3 bg-transparent cs-btn${selectedRegions.includes('Europe') ? '-active' : ''}`} onClick={() => toggleRegion('Europe')}>Europe</Button>
                     </ButtonGroup>
                     <ButtonGroup>
-                        <Button onClick={() => toggleRegion('Africa')}>Africa</Button>
-                        <Button onClick={() => toggleRegion('Asia')}>Asia</Button>
-                        <Button onClick={() => toggleRegion('Europe')}>Europe</Button>
-                    </ButtonGroup>
-                    <ButtonGroup>
-                        <Button onClick={() => toggleRegion('Oceania')}>Oceania</Button>
+                        <Button className={`cs-transition cs-tc-one border-0 rounded-3 bg-transparent cs-btn${selectedRegions.includes('Oceania') ? '-active' : ''}`} onClick={() => toggleRegion('Oceania')}>Oceania</Button>
                     </ButtonGroup>
                 </ButtonToolbar>
             </Container>

@@ -1,4 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Be+Vietnam+Pro:400,600,700&display=swap');
 
+body {
+    font-family: 'Be Vietnam Pro', sans-serif !important;
+}
+
+.cs-transition {
+    transition: .5s !important;
+}
 
 /*Background*/
 .cs-bg-main {
@@ -7,7 +15,11 @@
 }
 
 .cs-bg-second {
-    background-color: #282B30;
+    background-color: #1B1D1F !important;
+}
+
+.cs-bg-therd {
+    background-color: #282B30 !important;
 }
 
 /*Border*/
@@ -15,9 +27,17 @@
     border: solid 1px #6C727F !important;
 }
 
+.cs-border-color {
+    border-color: #6C727F !important;
+}
+
 /*Font*/
 .cs-tc-one {
     color: #D2D5DA !important;
+}
+
+.cs-fw-700 {
+    font-weight: 700 !important;
 }
 
 /*Images*/
@@ -27,13 +47,30 @@
     object-fit: cover;
 }
 
-/*Table*/
-.cs-table {
-    background-color: #282B30 !important;
+/*Form Control*/
+.cs-formcontrol::placeholder {
+    color: #D2D5DA !important;
 }
 
-.cs-table th,
-.cs-table td {
-    background-color: transparent !important;
-    color: #D2D5DA !important;
+/*Buttons*/
+.cs-dropdown .dropdown-toggle::after {
+    display: none !important
+}
+
+.cs-dropdown .dropdown-toggle:hover {
+    background-color: #D2D5DA !important;
+    color: #282B30 !important;
+}
+
+.cs-dropdown .dropdown-item:hover {
+    background-color: #D2D5DA !important;
+    color: #282B30 !important;
+}
+
+.cs-btn:hover {
+    background-color: #282B30 !important;    
+}
+
+.cs-btn-active {
+    background-color: #282B30 !important;
 }

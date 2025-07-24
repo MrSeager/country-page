@@ -19,6 +19,7 @@ interface countriesListProps {
     region: string
     independent: boolean,
     unMember: boolean,
+    subregion: string,
 }
 
 interface CountriesListSectionProps {
