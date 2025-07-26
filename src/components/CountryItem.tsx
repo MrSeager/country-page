@@ -1,12 +1,16 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
+//Components
+import { useFillingUpHover } from './anim.tsx';
 //Bootstrap
-import { Row, Col, Image } from 'react-bootstrap';
+import { Row, Col, Image, Modal } from 'react-bootstrap';
+//Spring
+import { useSpring, animated } from '@react-spring/web';
 
-interface countryProps {
+interface countriesListProps {
     flags: {
-    png: string,
-    svg: string,
-    alt: string,
+        png: string,
+        svg: string,
+        alt: string,
     },
     name: {
         common: string,
@@ -15,31 +19,47 @@ interface countryProps {
     population: number,
     area: number,
     region: string,
-    subregion: string,
-}
-interface CountryItemProps {
-    country: countryProps,
-    index: number
     independent: boolean,
     unMember: boolean,
+    subregion: string,
 }
 
-const CountryItem: FC<CountryItemProps> = ({ country, index }) => {
+interface CountryItemProps {
+    country: countriesListProps,
+    index: number,
+    handleShowInfo: (index: number) => void,
+}
+
+const CountryItem: FC<CountryItemProps> = ({ country, index, handleShowInfo }) => {
+    const [hovered, setHovered] = useState<boolean>(false);
+    
+    const animHoverFill = useFillingUpHover(hovered);
+
     return (
-        <Row key={index} className='fs-5 cs-tc-one'>
-            <Col xs={1} className='ps-0'>
+        <Row  
+            key={index} 
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+            onClick={() => handleShowInfo(index)}
+            className='fs-5 cs-tc-one rounded position-relative'
+        >
+            <animated.div
+                style={animHoverFill}
+                className='position-absolute h-100 z-0 rounded' 
+            />
+            <Col xs={1} className='ps-0 z-1'>
                 <Image fluid src={country.flags.svg} alt={country.flags.alt} className='cs-flag-img rounded' />
             </Col>
-            <Col xs={3} className='p-0 d-flex align-items-center'>
+            <Col xs={3} className='p-0 d-flex align-items-center z-1'>
                 <h3 className='h5 m-0'>{country.name.common}</h3>
             </Col>
-            <Col xs={3} className='p-0 d-flex align-items-center'>
+            <Col xs={3} className='p-0 d-flex align-items-center z-1'>
                 <h3 className='h5 m-0'>{country.population.toLocaleString()}</h3>
             </Col>
-            <Col xs={3} className='p-0 d-flex align-items-center'>
+            <Col xs={3} className='p-0 d-flex align-items-center z-1'>
                 <h3 className='h5 m-0'>{country.area.toLocaleString()}</h3>
             </Col>
-            <Col xs={2} className='p-0 d-flex align-items-center'>
+            <Col xs={2} className='p-0 d-flex align-items-center z-1'>
                 <h3 className='h5 m-0'>{country.region}</h3>
             </Col>
         </Row>

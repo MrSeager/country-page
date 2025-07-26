@@ -16,7 +16,7 @@ interface countriesListProps {
     },
     population: number,
     area: number,
-    region: string
+    region: string,
     independent: boolean,
     unMember: boolean,
     subregion: string,
@@ -24,9 +24,10 @@ interface countriesListProps {
 
 interface CountriesListSectionProps {
     countriesList: countriesListProps[],
+    handleShowInfo: (index: number) => void,
 }
 
-const CountriesListSection: FC<CountriesListSectionProps> = ({ countriesList }) => {
+const CountriesListSection: FC<CountriesListSectionProps> = ({ countriesList, handleShowInfo }) => {
     return (
         <Col lg={9} xs={12} className='py-5 d-flex flex-column gap-4'>
             <Row className='cs-tc-one border-bottom pb-2'>
@@ -52,6 +53,7 @@ const CountriesListSection: FC<CountriesListSectionProps> = ({ countriesList }) 
                     <CountryItem 
                         country={country}
                         index={index}
+                        handleShowInfo={handleShowInfo}
                     />
                 ))
             ) : <Spinner className='mx-auto my-5' animation="grow" variant="light" role='status' />}

@@ -18,8 +18,8 @@ interface NavPanelProps {
 
 const NavPanel: FC<NavPanelProps> = ({ sortBy, setSortBy, toggleRegion, filterUNMember, setFilterUNMember, filterIndependent, setFilterIndependent, selectedRegions }) => {
     return (
-        <Col lg={3} xs={12} className='pt-5 d-flex flex-column gap-4 pe-3'>
-            <Container className='d-flex flex-column p-0'>
+        <Col lg={3} xs={12} className='pt-5 d-flex flex-column gap-4 pe-lg-3 px-0'>
+            <Container fluid className='d-flex flex-column p-0'>
                 <h2 className='h6 cs-tc-one'>Sort by</h2>
                 <Dropdown drop='down' className='cs-dropdown'>
                     <Dropdown.Toggle 
@@ -39,35 +39,37 @@ const NavPanel: FC<NavPanelProps> = ({ sortBy, setSortBy, toggleRegion, filterUN
                     </Dropdown.Menu>
                 </Dropdown>
             </Container>
-            <Container className='d-flex flex-column p-0'>
+            <Container fluid className='d-flex flex-column p-0'>
                 <h2 className='h6 cs-tc-one'>Region</h2>
                 <ButtonToolbar className='d-flex flex-lg-column flex-row align-items-start gap-3'>
                     <ButtonGroup className='gap-3'>
-                        <Button className={`cs-transition cs-tc-one border-0 rounded-3 bg-transparent cs-btn${selectedRegions.includes('Americas') ? '-active' : ''}`} onClick={() => toggleRegion('Americas')}>Americas</Button>
-                        <Button className={`cs-transition cs-tc-one border-0 rounded-3 bg-transparent cs-btn${selectedRegions.includes('Antarctic') ? '-active' : ''}`} onClick={() => toggleRegion('Antarctic')}>Antarctic</Button>
+                        <Button type='button' variant='custom' className={`cs-transition cs-tc-one border-0 rounded-3 cs-btn${selectedRegions.includes('Americas') ? '-active' : ''}`} onClick={() => toggleRegion('Americas')}>Americas</Button>
+                        <Button type='button' variant='custom' className={`cs-transition cs-tc-one border-0 rounded-3 cs-btn${selectedRegions.includes('Antarctic') ? '-active' : ''}`} onClick={() => toggleRegion('Antarctic')}>Antarctic</Button>
                     </ButtonGroup>
                     <ButtonGroup className='gap-3'>
-                        <Button className={`cs-transition cs-tc-one border-0 rounded-3 bg-transparent cs-btn${selectedRegions.includes('Africa') ? '-active' : ''}`} onClick={() => toggleRegion('Africa')}>Africa</Button>
-                        <Button className={`cs-transition cs-tc-one border-0 rounded-3 bg-transparent cs-btn${selectedRegions.includes('Asia') ? '-active' : ''}`} onClick={() => toggleRegion('Asia')}>Asia</Button>
-                        <Button className={`cs-transition cs-tc-one border-0 rounded-3 bg-transparent cs-btn${selectedRegions.includes('Europe') ? '-active' : ''}`} onClick={() => toggleRegion('Europe')}>Europe</Button>
+                        <Button type='button' variant='custom' className={`cs-transition cs-tc-one border-0 rounded-3 cs-btn${selectedRegions.includes('Africa') ? '-active' : ''}`} onClick={() => toggleRegion('Africa')}>Africa</Button>
+                        <Button type='button' variant='custom' className={`cs-transition cs-tc-one border-0 rounded-3 cs-btn${selectedRegions.includes('Asia') ? '-active' : ''}`} onClick={() => toggleRegion('Asia')}>Asia</Button>
+                        <Button type='button' variant='custom' className={`cs-transition cs-tc-one border-0 rounded-3 cs-btn${selectedRegions.includes('Europe') ? '-active' : ''}`} onClick={() => toggleRegion('Europe')}>Europe</Button>
                     </ButtonGroup>
                     <ButtonGroup>
-                        <Button className={`cs-transition cs-tc-one border-0 rounded-3 bg-transparent cs-btn${selectedRegions.includes('Oceania') ? '-active' : ''}`} onClick={() => toggleRegion('Oceania')}>Oceania</Button>
+                        <Button type='button' variant='custom' className={`cs-transition cs-tc-one border-0 rounded-3 cs-btn${selectedRegions.includes('Oceania') ? '-active' : ''}`} onClick={() => toggleRegion('Oceania')}>Oceania</Button>
                     </ButtonGroup>
                 </ButtonToolbar>
             </Container>
-            <Container className='d-flex flex-column p-0'>
+            <Container fluid className='d-flex flex-column p-0'>
                 <h2 className='h6 cs-tc-one'>Status</h2>
-                <Form className='cs-tc-one'>
+                <Form className='cs-tc-one ps-1'>
                     <Form.Check
                         type='checkbox'
                         label='Member of the United Nations'
+                        className='cs-checkbox mb-2'
                         checked={filterUNMember}
                         onChange={() => setFilterUNMember(!filterUNMember)}
                     />
                     <Form.Check
                         type='checkbox'
                         label='Independent'
+                        className='cs-checkbox'
                         checked={filterIndependent}
                         onChange={() => setFilterIndependent(!filterIndependent)}
                     />

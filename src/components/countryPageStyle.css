@@ -2,10 +2,40 @@
 
 body {
     font-family: 'Be Vietnam Pro', sans-serif !important;
+    background-color: #1B1D1F !important;
+}
+
+.cs-w {
+    max-width: 1920px !important;
+}
+
+.cs-shadow {
+    box-shadow: #4E80EE 0px 0px 0px 3px !important;
 }
 
 .cs-transition {
     transition: .5s !important;
+}
+
+.cs-modal-width {
+    width: 93vw !important;
+    max-width: 93vw !important;
+}
+
+.modal-content {
+    background-color: #1B1D1F !important;
+}
+
+.cs-modal-mt {
+    margin-top: 10vw !important;
+}
+
+.cs-pos-flag {
+    top: -30% !important
+}
+
+.cs-pt {
+    padding-top: 25% !important;
 }
 
 /*Background*/
@@ -29,6 +59,10 @@ body {
 
 .cs-border-color {
     border-color: #6C727F !important;
+}
+
+.cs-border-second {
+    border-right: solid 2px #1B1D1F !important;
 }
 
 /*Font*/
@@ -73,4 +107,19 @@ body {
 
 .cs-btn-active {
     background-color: #282B30 !important;
+}
+
+/*Checkbox*/
+.cs-checkbox .form-check-input {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: solid 2px #6C727F !important;
+    transform: scale(1.5);
+    transition: .5s !important;
+    margin-right: 15px !important;
+}
+
+.cs-checkbox .form-check-input:checked {
+    background-color: #4E80EE !important;
+    border-color: #4E80EE !important;
 }
