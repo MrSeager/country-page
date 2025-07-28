@@ -2,9 +2,9 @@ import { FC, useState } from 'react';
 //Components
 import { useFillingUpHover } from './anim.tsx';
 //Bootstrap
-import { Row, Col, Image, Modal } from 'react-bootstrap';
+import { Row, Col, Image } from 'react-bootstrap';
 //Spring
-import { useSpring, animated } from '@react-spring/web';
+import { animated } from '@react-spring/web';
 
 interface countriesListProps {
     flags: {
@@ -22,12 +22,24 @@ interface countriesListProps {
     independent: boolean,
     unMember: boolean,
     subregion: string,
+    capital: string,
+    languages: {
+        [key: string]: string,
+    },
+    currencies?: {
+        [code: string]: {
+            name: string,
+            symbol: string,
+        },
+    },
+    borders: string[],
+    cca3: string,
 }
 
 interface CountryItemProps {
     country: countriesListProps,
     index: number,
-    handleShowInfo: (index: number) => void,
+    handleShowInfo: (show: boolean, index: number) => void,
 }
 
 const CountryItem: FC<CountryItemProps> = ({ country, index, handleShowInfo }) => {
@@ -40,8 +52,8 @@ const CountryItem: FC<CountryItemProps> = ({ country, index, handleShowInfo }) =
             key={index} 
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            onClick={() => handleShowInfo(index)}
-            className='fs-5 cs-tc-one rounded position-relative'
+            onClick={() => handleShowInfo(true, index)}
+            className='fs-5 cs-tc-one rounded position-relative cs-pointer'
         >
             <animated.div
                 style={animHoverFill}

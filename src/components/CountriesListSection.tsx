@@ -24,7 +24,7 @@ interface countriesListProps {
 
 interface CountriesListSectionProps {
     countriesList: countriesListProps[],
-    handleShowInfo: (index: number) => void,
+    handleShowInfo: (show: boolean, index: number) => void,
 }
 
 const CountriesListSection: FC<CountriesListSectionProps> = ({ countriesList, handleShowInfo }) => {

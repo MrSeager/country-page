@@ -3,6 +3,7 @@ import { FC, useState } from 'react';
 import './countryPageStyle.css';
 import NavPanel from './NavPanel.tsx';
 import CountriesListSection from './CountriesListSection.tsx';
+import CountryDetails from './CountryDetails.tsx';
 //Bootstrap
 import 'bootstrap/dist/css/bootstrap.css';
 import { Container, Row, Col, Form, InputGroup, Modal, Image } from 'react-bootstrap';
@@ -25,6 +26,18 @@ interface countriesListProps {
     independent: boolean,
     unMember: boolean,
     subregion: string,
+    capital: string,
+    languages: {
+        [key: string]: string,
+    },
+    currencies?: {
+        [code: string]: {
+            name: string,
+            symbol: string,
+        },
+    },
+    borders: string[],
+    cca3: string,
 }
 
 interface CountriesPageProps {
@@ -38,7 +51,7 @@ const CountriesPage: FC<CountriesPageProps> = ({ countriesList }) => {
     const [filterIndependent, setFilterIndependent] = useState<boolean>(false);
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [showInfo, setShowInfo] = useState<boolean>(false);
-    const [countryIndex, setCountryIndex] = useState<number>(0);
+    const [countryIndex, setCountryIndex] = useState<number | null>(null);
 
     const sortedCountries = [...countriesList].sort((a, b) => {
         if (sortBy === 'population') {
@@ -75,12 +88,10 @@ const CountriesPage: FC<CountriesPageProps> = ({ countriesList }) => {
         return regionMatch && unMemberMatch && independentMatch && searchMatch;
     });
 
-    const handleShowInfo = ( index: number ) => {
-        setShowInfo(true);
+    const handleShowInfo = ( show: boolean, index: number | null ) => {
+        setShowInfo(show);
         setCountryIndex(index);
     }
-
-    const handleClose = () => setShowInfo(false);
 
     return (
         <Container fluid className='mb-3 cs-border rounded-3 cs-bg-second py-4 px-lg-5 px-4 shadow cs-bc-one'>
@@ -117,37 +128,15 @@ const CountriesPage: FC<CountriesPageProps> = ({ countriesList }) => {
                     handleShowInfo={handleShowInfo}
                 />
             </Row>
-        
-            <Modal
-                dialogClassName="cs-modal-width cs-modal-mt shadow"
-                show={showInfo}
-                onHide={handleClose}
-                centered
-            >
-                <Modal.Header className='cs-pt border-0 d-flex flex-column align-items-center gap-3 cs-tc-one bg-transparent rounded-top-3 position-relative'>
-                    <Image 
-                        fluid 
-                        src={filteredCountries[countryIndex].flags.svg} 
-                        alt={filteredCountries[countryIndex].flags.alt} 
-                        className='w-50 mx-auto rounded rounded-3 position-absolute cs-pos-flag'
-                    />
-                    <Modal.Title className='text-center fs-2 fw-bold'>{filteredCountries[countryIndex].name.common}</Modal.Title>
-                    <Modal.Title className='text-center fs-5'>{filteredCountries[countryIndex].name.official}</Modal.Title>
-                    <Container className='d-flex gap-4'>
-                        <Container className='cs-bg-therd d-flex justify-content-center px-4 py-2 rounded-3'>
-                            <h3 className='py-1 h5 m-0 pe-3 cs-border-second'>Population</h3>
-                            <h3 className='py-1 h5 m-0 ps-3'>{filteredCountries[countryIndex].population.toLocaleString()}</h3>
-                        </Container>
-                        <Container className='cs-bg-therd d-flex justify-content-center px-4 py-2 rounded-3'>
-                            <h3 className='py-1 h5 m-0 pe-3 cs-border-second'>Area (km²)</h3>
-                            <h3 className='py-1 h5 m-0 ps-3'>{filteredCountries[countryIndex].area.toLocaleString()}</h3>
-                        </Container>
-                    </Container>
-                </Modal.Header>
-                 <Modal.Body className='bg-transparent'>
-                    
-                 </Modal.Body>
-            </Modal>
+    
+            {countryIndex !== null ? (
+                <CountryDetails 
+                    showInfo={showInfo}
+                    handleShowInfo={handleShowInfo}
+                    countriesList={countriesList}
+                    countryInfo={filteredCountries[countryIndex]}
+                />
+            ) : ''}
         </Container>
     );
 }

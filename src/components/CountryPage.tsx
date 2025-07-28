@@ -32,18 +32,51 @@ interface countriesListProps {
     independent: boolean,
     unMember: boolean,
     subregion: string,
+    capital: string,
+    languages: {
+        [key: string]: string,
+    },
+    currencies?: {
+        [code: string]: {
+            name: string,
+            symbol: string,
+        },
+    },
+    borders: string[],
+    cca3: string,
 }
 
 const CountryPage: FC = () => {
     const [countriesList, setCountriesList] = useState<countriesListProps[]>([]);
 
     useEffect(() => {
-        axios.get(`https://restcountries.com/v3.1/all?fields=flags,name,population,area,region,independent,unMember,subregion`)
-            .then(response => {
-            console.log('Fetched countries:', response.data);
-            setCountriesList(response.data);
-        })
-        .catch(error => {
+        const fetchMainData = axios.get(
+            'https://restcountries.com/v3.1/all?fields=name,flags,population,area,region,independent,unMember,subregion,capital,languages'
+        );
+
+        const fetchCurrencyData = axios.get(
+            'https://restcountries.com/v3.1/all?fields=name,currencies,borders,cca3'
+        );
+
+        Promise.all([fetchMainData, fetchCurrencyData])
+            .then(([mainRes, currencyRes]) => {
+                const mainList = mainRes.data;
+                const currencyList = currencyRes.data;
+
+                // Merge by country name (or use cca3 for more reliability)
+                const mergedList = mainList.map(country => {
+                    const match = currencyList.find(c => c.name.common === country.name.common);
+                    return {
+                    ...country,
+                    currencies: match?.currencies || {},
+                    borders: match?.borders || [],
+                    cca3: match?.cca3 || '',
+                    };
+                });
+
+                setCountriesList(mergedList);
+            })
+            .catch(error => {
             console.error('API error:', error);
         });
     }, []);
