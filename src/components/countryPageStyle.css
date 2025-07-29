@@ -27,11 +27,7 @@ body {
 }
 
 .cs-modal-mt {
-    margin-top: 200px !important;
-}
-
-.cs-pt {
-    padding-top: 25% !important;
+    margin-top: 100px !important;
 }
 
 .cs-pointer {
@@ -98,12 +94,10 @@ body {
     object-fit: cover;
 }
 
-.cs-pos-flag {
-    top: -30% !important
-}
-
-.cs-flag-size {
-    max-height: 30vw !important;
+.cs-image-out {
+    margin-top: -20%;
+    z-index: 1;
+    position: relative;
 }
 
 /*Form Control*/

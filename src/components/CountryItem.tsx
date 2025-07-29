@@ -59,19 +59,19 @@ const CountryItem: FC<CountryItemProps> = ({ country, index, handleShowInfo }) =
                 style={animHoverFill}
                 className='position-absolute h-100 z-0 rounded' 
             />
-            <Col xs={1} className='ps-0 z-1'>
+            <Col lg={1} xs={2} className='ps-0 z-1'>
                 <Image fluid src={country.flags.svg} alt={country.flags.alt} className='cs-flag-img rounded' />
             </Col>
-            <Col xs={3} className='p-0 d-flex align-items-center z-1'>
+            <Col lg={3} xs={4} className='p-0 d-flex align-items-center z-1'>
                 <h3 className='h5 m-0'>{country.name.common}</h3>
             </Col>
-            <Col xs={3} className='p-0 d-flex align-items-center z-1'>
+            <Col lg={3} xs={4} className='p-0 d-flex align-items-center z-1'>
                 <h3 className='h5 m-0'>{country.population.toLocaleString()}</h3>
             </Col>
-            <Col xs={3} className='p-0 d-flex align-items-center z-1'>
+            <Col lg={3} xs={2} className='p-0 d-flex align-items-center z-1'>
                 <h3 className='h5 m-0'>{country.area.toLocaleString()}</h3>
             </Col>
-            <Col xs={2} className='p-0 d-flex align-items-center z-1'>
+            <Col lg={2} xs={0} className='p-0 d-none d-lg-block d-flex align-items-center z-1'>
                 <h3 className='h5 m-0'>{country.region}</h3>
             </Col>
         </Row>

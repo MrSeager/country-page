@@ -2,6 +2,7 @@
   "name": "country-page",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://MrSeager.github.io/country-page",
   "dependencies": {
     "@react-spring/web": "^10.0.1",
     "@testing-library/dom": "^10.4.0",
@@ -12,6 +13,7 @@
     "@types/react-dom": "^19.1.6",
     "axios": "^1.10.0",
     "bootstrap": "^5.3.7",
+    "gh-pages": "^6.3.0",
     "react": "^19.1.0",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.1.0",
@@ -24,7 +26,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [

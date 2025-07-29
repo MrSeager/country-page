@@ -20,6 +20,18 @@ interface countriesListProps {
     independent: boolean,
     unMember: boolean,
     subregion: string,
+    capital: string,
+    languages: {
+        [key: string]: string,
+    },
+    currencies?: {
+        [code: string]: {
+            name: string,
+            symbol: string,
+        },
+    },
+    borders: string[],
+    cca3: string,
 }
 
 interface CountriesListSectionProps {
@@ -31,19 +43,19 @@ const CountriesListSection: FC<CountriesListSectionProps> = ({ countriesList, ha
     return (
         <Col lg={9} xs={12} className='py-5 d-flex flex-column gap-4'>
             <Row className='cs-tc-one border-bottom pb-2'>
-                <Col xs={1} className='p-0'>
+                <Col lg={1} xs={2} className='p-0'>
                     <h3 className='h6'>Flag</h3>
                 </Col>
-                <Col xs={3} className='p-0'>
+                <Col lg={3} xs={4} className='p-0'>
                     <h3 className='h6'>Name</h3>
                 </Col>
-                <Col xs={3} className='p-0'>
+                <Col lg={3} xs={4} className='p-0'>
                     <h3 className='h6'>Population</h3>
                 </Col>
-                <Col xs={3} className='p-0'>
+                <Col lg={3} xs={2} className='p-0'>
                     <h3 className='h6'>Area (km²)</h3>
                 </Col>
-                <Col xs={2} className='p-0'>
+                <Col lg={2} xs={0} className='p-0 d-none d-lg-block'>
                     <h3 className='h6'>Region</h3>
                 </Col>
             </Row>

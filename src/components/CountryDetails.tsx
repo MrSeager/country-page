@@ -68,27 +68,30 @@ const CountryDetails: FC<CountryDetailsProps> = ({ showInfo, handleShowInfo, cou
 
     return (
         <Modal
-            dialogClassName="cs-modal-width cs-modal-mt shadow user-select-none"
+            size='lg'
+            dialogClassName="cs-modal-mt shadow user-select-none"
             show={showInfo}
             onHide={() => handleShowInfo(false, null)}
             centered
         >
-            <Modal.Header className='cs-border cs-pt border-bottom-0 d-flex flex-column align-items-center gap-3 cs-tc-one bg-transparent rounded-top-3 position-relative'>
-                <Image 
-                    fluid 
-                    src={countryInfo.flags.svg} 
-                    alt={countryInfo.flags.alt} 
-                    className='cs-flag-size rounded rounded-3 position-absolute cs-pos-flag'
-                />
+            <Modal.Header className='cs-border border-bottom-0 d-flex flex-column align-items-center gap-3 cs-tc-one bg-transparent rounded-top-3'>
+                <Container className='w-75 overflow-visible position-relative'>
+                    <Image 
+                        fluid 
+                        src={countryInfo.flags.svg} 
+                        alt={countryInfo.flags.alt} 
+                        className='rounded rounded-3 cs-image-out'
+                    />
+                </Container>
                 <Modal.Title className='text-center fs-2 fw-bold'>{countryInfo.name.common}</Modal.Title>
                 <Modal.Title className='text-center fs-5'>{countryInfo.name.official}</Modal.Title>
-                <Container className='d-flex gap-4'>
+                <Container className='d-flex flex-lg-row flex-column gap-4 align-items-center justify-content-center'>
                     <Container className='cs-bg-therd d-flex justify-content-center px-4 py-2 rounded-3'>
                         <h3 className='py-1 h5 m-0 pe-3 cs-border-second'>Population</h3>
                         <h3 className='py-1 h5 m-0 ps-3'>{countryInfo.population.toLocaleString()}</h3>
                     </Container>
                     <Container className='cs-bg-therd d-flex justify-content-center px-4 py-2 rounded-3'>
-                        <h3 className='py-1 h5 m-0 pe-3 cs-border-second'>Area (km²)</h3>
+                        <h3 className='py-1 h5 m-0 pe-3 cs-border-second text-nowrap'>Area (km²)</h3>
                         <h3 className='py-1 h5 m-0 ps-3'>{countryInfo.area.toLocaleString()}</h3>
                     </Container>
                 </Container>
